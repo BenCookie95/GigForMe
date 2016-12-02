@@ -1,0 +1,75 @@
+DROP TABLE "Venue";
+
+CREATE TABLE "Venue" ( 
+	"VenueID" INT(6) NOT NULL AUTO_INCREMENT , 
+	"VenueName" VARCHAR(255) NOT NULL , 
+	"Capacity" INT(8) NOT NULL , 
+	PRIMARY KEY ("VenueID") 
+);
+
+DROP TABLE "Vote";
+
+CREATE TABLE "Vote"(
+	"VoteID" INT(6) NOT NULL AUTO_INCREMENT , 
+	"UserID" INT(8) NOT NULL , 
+	"GigID" INT(8) NOT NULL , 
+	PRIMARY KEY ("VenueID"),
+	FOREIGN KEY ("UserID") REFERENCES User("UserID"),
+	FOREIGN KEY ("GigID") REFERENCES Gig("GigID")
+);
+
+DROP TABLE "Comment"; 
+
+CREATE TABLE "Comment"(
+	"CommentID" INT(6) NOT NULL AUTO_INCREMENT , 
+	"UserID" INT(8) NOT NULL , 
+	"GigID" INT(8) NOT NULL ,
+	"UserComment" VARCHAR(255) NOT NULL,
+	PRIMARY KEY ("CommentID"),
+	FOREIGN KEY ("UserID") REFERENCES User("UserID"),
+	FOREIGN KEY ("GigID") REFERENCES Gig("GigID")
+);
+
+DROP TABLE "User";
+
+CREATE TABLE "User"(
+	"UserID" INT(6) NOT NULL AUTO_INCREMENT,
+	"Username" VARCHAR(50) NOT NULL,
+	"Name" VARCHAR(60) NOT NULL,
+	"Bio" VARCHAR(255) NOT NULL,
+	"Email" VARCHAR(50) NOT NULL,
+	"picDir" VARCHAR(80) NOT NULL,
+	"isAdmin" BOOLEAN NOT NULL,
+	"Password" VARCHAR(50) NOT NULL,
+	PRIMARY KEY ("UserID")
+); 
+DROP TABLE "Band";
+
+CREATE TABLE "Band"
+	"BandID" INT(6) NOT NULL AUTO_INCREMENT,
+	"Username" VARCHAR(50) NOT NULL,
+	"Band_Name" VARCHAR(60) NOT NULL,
+	"Bio" VARCHAR(255) NOT NULL,
+	"Email" VARCHAR(50) NOT NULL,
+	"picDir" VARCHAR(80) NOT NULL,
+	"Password" VARCHAR(50) NOT NULL,
+	PRIMARY KEY ("BandID")
+);
+DROP TABLE "Gig";
+
+CREATE TABLE "Gig"(
+	"GigID" INT(6) NOT NULL AUTO_INCREMENT ,
+	"VenueID" INT(6) NOT NULL ,
+	"BandID" INT(6) NOT NULL ,
+	"UserID" INT(6) NOT NULL , 
+	"gigDescription" VARCHAR(255) NOT NULL ,
+	"dateCreated" DATE NOT NULL
+	"suggestedDate" DATE NOT NULL ,
+	"Price" DECIMAL(6,2) NOT NULL,
+	"isConfirmed" BOOLEAN NOT NULL,
+	PRIMARY KEY ("GigID"),
+	FOREIGN KEY ("VenueID") REFERENCES Venue("VenueID"),
+	FOREIGN KEY ("BandID") REFERENCES Band("BandID"),
+	FOREIGN KEY ("UserID") REFERENCES User("UserID")
+
+);
